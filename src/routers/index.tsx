@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
 import NotFound from "../pages/error/NotFound";
+import Schedule from "../pages/Schedule/Schedule";
 
 export const Router = createBrowserRouter(
   createRoutesFromChildren(
@@ -13,7 +14,9 @@ export const Router = createBrowserRouter(
         path="/dashboard"
         element={<DashboardLayout />}
         errorElement={<NotFound />}
-      ></Route>
+      >
+        <Route path="/dashboard/schedule" element={<Schedule />} />
+      </Route>
     </>
   )
 );
