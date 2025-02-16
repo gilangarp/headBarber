@@ -5,7 +5,7 @@ import {
 } from "react-router-dom";
 import DashboardLayout from "../layout/DashboardLayout";
 import NotFound from "../pages/error/NotFound";
-import Schedule from "../pages/Schedule/Schedule";
+import Schedule from "../pages/schedule/Schedule";
 import Worker from "../pages/worker/Worker";
 import CreateWorker from "../pages/createWorker/CreateWorker";
 
