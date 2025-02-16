@@ -141,15 +141,15 @@ const SidebarWithNavbar = () => {
             </li>
             <li>
               <a
-                href="/dashboard/user"
+                href="/dashboard/worker"
                 className={`flex items-center p-2 font-bold rounded-lg hover:bg-gray-200 group ${
-                  currentPath === "/dashboard/user"
+                  currentPath === "/dashboard/worker"
                     ? "text-[#2563EB]"
                     : "text-[#606C80]"
                 }`}
               >
                 <FaUserFriends className="shrink-0 w-5 h-5 transition duration-75" />
-                <span className="ms-3">Users</span>
+                <span className="ms-3">Worker</span>
               </a>
             </li>
           </ul>

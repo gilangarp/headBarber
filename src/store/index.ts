@@ -1,7 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { workerInputReducer } from "./workerSlice";
 
 export const store = configureStore({
-  reducer: {},
+  reducer: {
+    createWorker: workerInputReducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
