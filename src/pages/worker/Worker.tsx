@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import { BsFillPersonVcardFill } from "react-icons/bs";
+import { useStoreSelector } from "../../hooks/useStore";
 
 const Worker = () => {
   const navigate = useNavigate();
@@ -9,14 +10,18 @@ const Worker = () => {
     navigate("/dashboard/worker/add");
   };
 
+  const { role } = useStoreSelector((state) => state.loginDashboard);
+
   return (
     <div>
-      <Button
-        iconPosition="right"
-        icon={<BsFillPersonVcardFill />}
-        label="add Worker"
-        onClick={handleAddWorker}
-      />
+      {role === "owner" && (
+        <Button
+          iconPosition="right"
+          icon={<BsFillPersonVcardFill />}
+          label="Add Worker"
+          onClick={handleAddWorker}
+        />
+      )}
     </div>
   );
 };

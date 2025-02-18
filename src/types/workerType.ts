@@ -1,28 +1,16 @@
 import { IResponse } from "./responseType";
 
-export interface IWorkerBody {
-  firstName: string;
-  lastName: string;
-  image: string;
-  outletsId: string;
-  roleId: number;
+export interface IWorkerLoginResponse {
+  token: string;
+  uuid: string;
+  role: string;
+}
+
+export interface ILoginWorkerForm {
   email: string;
   password: string;
 }
 
-export interface ISuperUser {
-  uuid?: string;
-  fullName: string;
-  role: string;
-  outletName?: string;
-  outletCode?: string;
-  status?: string;
-  shift?: string;
-  monthsOfService?: number;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-export interface ISuperUserResponse extends IResponse {
-  data?: ISuperUser;
+export interface IAuthWorkerResponse extends IResponse {
+  data: IWorkerLoginResponse;
 }

@@ -8,6 +8,8 @@ import NotFound from "../pages/error/NotFound";
 import Schedule from "../pages/schedule/Schedule";
 import Worker from "../pages/worker/Worker";
 import CreateWorker from "../pages/createWorker/CreateWorker";
+import LoginDashboard from "../pages/loginDashboard/LoginDashboard";
+import PrivateRoute from "./PrivateRoute";
 
 export const Router = createBrowserRouter(
   createRoutesFromChildren(
@@ -17,10 +19,38 @@ export const Router = createBrowserRouter(
         element={<DashboardLayout />}
         errorElement={<NotFound />}
       >
-        <Route path="/dashboard/schedule" element={<Schedule />} />
-        <Route path="/dashboard/worker" element={<Worker />} />
-        <Route path="/dashboard/worker/add" element={<CreateWorker />} />
+        <Route
+          path="/dashboard/schedule"
+          element={
+            <PrivateRoute
+              to="/dashboard/login"
+              requiredRoles={["manager", "owner", "cashier"]}
+            >
+              <Schedule />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard/worker"
+          element={
+            <PrivateRoute
+              to="/dashboard/login"
+              requiredRoles={["manager", "owner"]}
+            >
+              <Worker />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard/worker/add"
+          element={
+            <PrivateRoute to="/dashboard/login" requiredRoles={["owner"]}>
+              <CreateWorker />
+            </PrivateRoute>
+          }
+        />
       </Route>
+      <Route path="/dashboard/login" element={<LoginDashboard />} />
     </>
   )
 );

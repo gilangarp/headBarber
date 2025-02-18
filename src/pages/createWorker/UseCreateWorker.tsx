@@ -1,8 +1,8 @@
-import { useAppDispatch, useAppSelector } from "../../hooks/useStore";
+import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { workerInputSlice } from "../../store/workerSlice";
 
 const UseCreateWorker = () => {
-  const dispatch = useAppDispatch();
+  const dispatch = useStoreDispatch();
   const {
     file,
     password,
@@ -12,7 +12,7 @@ const UseCreateWorker = () => {
     lastName,
     selectedRoleUuid,
     selectedOutletUuid,
-  } = useAppSelector((state) => state.createWorker);
+  } = useStoreSelector((state) => state.createWorker);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;

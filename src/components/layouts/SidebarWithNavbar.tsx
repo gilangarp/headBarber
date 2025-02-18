@@ -1,10 +1,11 @@
-import { useLocation } from "react-router-dom";
 import { BsCalendar4Week } from "react-icons/bs";
 import { FaUserFriends } from "react-icons/fa";
+import UseSidebarWithNavbar from "./UseSidebarWithNavbar";
+import { CiLogout } from "react-icons/ci";
+import { isOwnerOrManager } from "../../utils/access";
 
 const SidebarWithNavbar = () => {
-  const location = useLocation();
-  const currentPath = location.pathname;
+  const { currentPath, logout, role } = UseSidebarWithNavbar();
 
   return (
     <>
@@ -139,17 +140,32 @@ const SidebarWithNavbar = () => {
                 <span className="ms-3">Schedule</span>
               </a>
             </li>
+            {isOwnerOrManager(role ?? "") && (
+              <li>
+                <a
+                  href="/dashboard/worker"
+                  className={`flex items-center p-2 font-bold rounded-lg hover:bg-gray-200 group ${
+                    currentPath === "/dashboard/worker"
+                      ? "text-[#2563EB]"
+                      : "text-[#606C80]"
+                  }`}
+                >
+                  <FaUserFriends className="shrink-0 w-5 h-5 transition duration-75" />
+                  <span className="ms-3">Worker</span>
+                </a>
+              </li>
+            )}
             <li>
               <a
-                href="/dashboard/worker"
+                onClick={logout}
                 className={`flex items-center p-2 font-bold rounded-lg hover:bg-gray-200 group ${
-                  currentPath === "/dashboard/worker"
+                  currentPath === "/dashboard/logout"
                     ? "text-[#2563EB]"
                     : "text-[#606C80]"
                 }`}
               >
-                <FaUserFriends className="shrink-0 w-5 h-5 transition duration-75" />
-                <span className="ms-3">Worker</span>
+                <CiLogout className="shrink-0 w-5 h-5 transition duration-75" />
+                <span className="ms-3">Logout</span>
               </a>
             </li>
           </ul>

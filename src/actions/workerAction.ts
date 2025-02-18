@@ -1,30 +1,44 @@
-// import { createAsyncThunk } from "@reduxjs/toolkit";
-// import { ISuperUserResponse, IWorkerBody } from "../types/workerType";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios, { AxiosResponse } from "axios";
+import {
+  IAuthWorkerResponse,
+  ILoginWorkerForm,
+  IWorkerLoginResponse,
+} from "../types/workerType";
+import { IResponse } from "../types/responseType";
 
-// export const createWorkerThunk = createAsyncThunk<
-//   IWorkerBody,
-//   IWorkerBody,
-//   { rejectValue: { error: string; status?: number } }
-// >("createWorkerThunk", async (body: IWorkerBody, { rejectWithValue }) => {
-//   try {
-//     const url = `${import.meta.env.VITE_REACT_APP_API_URL}/user/register`;
-//     const result: AxiosResponse<ISuperUserResponse> = await axios.post(
-//       url,
-//       body
-//     );
-//     return result.data.data;
-//   } catch (error) {
-//     if (error instanceof AxiosError) {
-//       const errorMessage =
-//         error.response?.data?.error?.message || "An unexpected error occurred";
-//       const status = error.response?.status;
-//       return rejectWithValue({
-//         error: errorMessage,
-//         status: status,
-//       });
-//     }
-//     return rejectWithValue({
-//       error: "An unexpected error occurred.",
-//     });
-//   }
-// });
+export const loginWorkerThunk = createAsyncThunk<
+  IWorkerLoginResponse,
+  ILoginWorkerForm,
+  { rejectValue: IResponse }
+>("authWorker/login", async (form, { rejectWithValue }) => {
+  const url = `${import.meta.env.VITE_REACT_APP_API_URL}/dashboard/login`;
+
+  try {
+    const response: AxiosResponse<IAuthWorkerResponse> = await axios.post(
+      url,
+      form
+    );
+    return response.data.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorResponse: IResponse = error.response?.data || {};
+      const errorMessage =
+        errorResponse.error?.message || "An unexpected error occurred.";
+      const errorDetails = errorResponse.error?.details;
+
+      return rejectWithValue({
+        error: {
+          message: errorMessage,
+          details: errorDetails,
+        },
+      });
+    }
+
+    return rejectWithValue({
+      error: {
+        message: "An unexpected error occurred.",
+      },
+    });
+  }
+});
