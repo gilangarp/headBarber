@@ -3,6 +3,7 @@ import { FaUserFriends } from "react-icons/fa";
 import UseSidebarWithNavbar from "./UseSidebarWithNavbar";
 import { CiLogout } from "react-icons/ci";
 import { isOwnerOrManager } from "../../utils/access";
+import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 
 const SidebarWithNavbar = () => {
   const { currentPath, logout, role } = UseSidebarWithNavbar();
@@ -152,6 +153,21 @@ const SidebarWithNavbar = () => {
                 >
                   <FaUserFriends className="shrink-0 w-5 h-5 transition duration-75" />
                   <span className="ms-3">Worker</span>
+                </a>
+              </li>
+            )}
+            {isOwnerOrManager(role ?? "") && (
+              <li>
+                <a
+                  href="/dashboard/outlet"
+                  className={`flex items-center p-2 font-bold rounded-lg hover:bg-gray-200 group ${
+                    currentPath === "/dashboard/outlet"
+                      ? "text-[#2563EB]"
+                      : "text-[#606C80]"
+                  }`}
+                >
+                  <HiOutlineBuildingOffice2 className="shrink-0 w-5 h-5 transition duration-75" />
+                  <span className="ms-3">Outlet</span>
                 </a>
               </li>
             )}
