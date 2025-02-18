@@ -8,6 +8,7 @@ import DropdownOutlet from "../../components/Dropdown/DropdownOutlet";
 import { workerInputSlice } from "../../store/workerSlice";
 import { useEffect } from "react";
 import { getAllRoleThunk } from "../../actions/roleAction";
+import { isOwner } from "../../utils/access";
 
 const Worker = () => {
   const navigate = useNavigate();
@@ -38,24 +39,26 @@ const Worker = () => {
 
   return (
     <div className="flex flex-col gap-5 px-4 mx-auto max-w-screen-2xl lg:px-12">
-      <div className="flex justify-end gap-5">
-        <div className="w-44">
-          <DropdownOutlet
-            buttonLabel="Outlet Code"
-            data={data}
-            handle={handleOutletSelect}
-          />
-        </div>
-        <div className="w-44">
-          <DropdownRole
-            buttonLabel="Role"
-            data={roles}
-            handle={handleRoleSelect}
-          />
+      <div className="flex flex-col lg:flex-row justify-end gap-5">
+        <div className="flex gap-5">
+          <div className="w-44">
+            <DropdownOutlet
+              buttonLabel="Outlet Code"
+              data={data}
+              handle={handleOutletSelect}
+            />
+          </div>
+          <div className="w-44">
+            <DropdownRole
+              buttonLabel="Role"
+              data={roles}
+              handle={handleRoleSelect}
+            />
+          </div>
         </div>
 
         <div>
-          {role === "owner" && (
+          {isOwner(role ?? "") && (
             <Button
               iconPosition="right"
               icon={<BsFillPersonVcardFill />}
