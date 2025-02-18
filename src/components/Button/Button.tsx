@@ -24,7 +24,7 @@ const Button = ({
     <button
       onClick={onClick}
       type={type}
-      className={`flex items-center gap-3 ${bgColor} ${textColor} bg-opacity-20 px-10 py-2 rounded-lg ${style}`}
+      className={`flex items-center gap-3 ${bgColor} ${textColor} bg-opacity-20 px-10 py-[5px] rounded-lg ${style}`}
     >
       {icon && iconPosition === "left" && (
         <span className="text-lg mr-2">{icon}</span>

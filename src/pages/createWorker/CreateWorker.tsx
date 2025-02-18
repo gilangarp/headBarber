@@ -4,8 +4,8 @@ import { PasswordValidation } from "../../components/Input/PasswordValidation";
 import { EmailInputField } from "../../components/Input/EmailInput";
 import ButtonFull from "../../components/Button/Button";
 import UseCreateWorker from "./UseCreateWorker";
-import DropdownRole from "./DropdownRole";
-import DropdownOutlet from "./DropdownOutlet";
+import DropdownRole from "../../components/Dropdown/DropdownRole";
+import DropdownOutlet from "../../components/Dropdown/DropdownOutlet";
 
 const CreateWorker = () => {
   const {
