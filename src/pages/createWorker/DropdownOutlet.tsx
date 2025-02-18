@@ -12,13 +12,13 @@ interface DropdownProps {
   buttonLabel: string;
 }
 
-const Dropdown = ({ data, handle, buttonLabel }: DropdownProps) => {
+const DropdownOutlet = ({ data, handle, buttonLabel }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState(buttonLabel);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
 
   const handleSelect = (uuid: string, label: string) => {
@@ -27,6 +27,7 @@ const Dropdown = ({ data, handle, buttonLabel }: DropdownProps) => {
     setIsOpen(false);
   };
 
+  // Close dropdown when clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -43,17 +44,31 @@ const Dropdown = ({ data, handle, buttonLabel }: DropdownProps) => {
     };
   }, []);
 
+  // Keyboard navigation support
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter" || event.key === " ") {
+      toggleDropdown();
+    } else if (event.key === "Escape") {
+      setIsOpen(false);
+    }
+  };
+
   return (
-    <div className="relative w-full" ref={dropdownRef}>
+    <div
+      className="relative w-full"
+      ref={dropdownRef}
+      onKeyDown={handleKeyDown} // Allow keyboard interaction for the dropdown
+      tabIndex={0} // Make the dropdown focusable
+    >
       <button
         id="dropdownDefaultButton"
         onClick={toggleDropdown}
-        className="text-black bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
+        className="text-black capitalize bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
         type="button"
         aria-expanded={isOpen ? "true" : "false"}
         aria-controls="dropdown"
       >
-        {selectedLabel} {/* Display the selected label */}
+        {selectedLabel}
         <IoIosArrowDown className="w-2.5 h-2.5 ms-3" />
       </button>
 
@@ -61,13 +76,16 @@ const Dropdown = ({ data, handle, buttonLabel }: DropdownProps) => {
         <div
           id="dropdown"
           className="z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44"
+          role="menu"
         >
           <ul className="py-2 text-sm text-gray-700">
             {data.map((item) => (
               <li key={item.uuid}>
                 <button
                   onClick={() => handleSelect(item.uuid, item.code)}
-                  className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+                  className="block capitalize w-full px-4 py-2 text-left hover:bg-gray-100"
+                  role="menuitem"
+                  aria-selected={selectedLabel === item.code ? "true" : "false"} // Dynamically set aria-selected
                 >
                   {item.code}
                 </button>
@@ -80,4 +98,4 @@ const Dropdown = ({ data, handle, buttonLabel }: DropdownProps) => {
   );
 };
 
-export default Dropdown;
+export default DropdownOutlet;

@@ -1,10 +1,11 @@
 import FileUpload from "../../components/Input/FileUpload";
-import Dropdown from "../../components/Input/Dropdown";
 import { InputField } from "../../components/Input/InputField";
 import { PasswordValidation } from "../../components/Input/PasswordValidation";
 import { EmailInputField } from "../../components/Input/EmailInput";
 import ButtonFull from "../../components/Button/Button";
 import UseCreateWorker from "./UseCreateWorker";
+import DropdownRole from "./DropdownRole";
+import DropdownOutlet from "./DropdownOutlet";
 
 const CreateWorker = () => {
   const {
@@ -13,15 +14,16 @@ const CreateWorker = () => {
     handlePasswordChange,
     handleOutletSelect,
     handleRoleSelect,
-    data,
     handleFileChange,
     handleInputChange,
+    data,
     error,
     firstName,
     lastName,
     password,
     email,
     file,
+    roles,
   } = UseCreateWorker();
   return (
     <div className="flex flex-col gap-3">
@@ -44,12 +46,16 @@ const CreateWorker = () => {
         />
       </div>
       <div className="flex flex-col lg:flex-row justify-between gap-5">
-        <Dropdown
+        <DropdownOutlet
           buttonLabel="Outlet Code"
           data={data}
           handle={handleOutletSelect}
         />
-        <Dropdown buttonLabel="Role" data={data} handle={handleRoleSelect} />
+        <DropdownRole
+          buttonLabel="Role"
+          data={roles}
+          handle={handleRoleSelect}
+        />
       </div>
       <PasswordValidation
         password={password}

@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { workerInputSlice } from "../../store/workerSlice";
+import { getAllRoleThunk } from "../../actions/roleAction";
 
 const UseCreateWorker = () => {
   const dispatch = useStoreDispatch();
@@ -13,6 +15,11 @@ const UseCreateWorker = () => {
     selectedRoleUuid,
     selectedOutletUuid,
   } = useStoreSelector((state) => state.createWorker);
+
+  const { roles } = useStoreSelector((state) => state.getAllRole);
+  useEffect(() => {
+    dispatch(getAllRoleThunk());
+  }, [dispatch]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -34,12 +41,12 @@ const UseCreateWorker = () => {
     { uuid: "3", code: "Item 3" },
   ];
 
-  const handleRoleSelect = (uuid: string) => {
-    dispatch(workerInputSlice.setRole(uuid));
+  const handleRoleSelect = (id: number) => {
+    dispatch(workerInputSlice.setRole(id));
   };
 
-  const handleOutletSelect = (uuid: string) => {
-    dispatch(workerInputSlice.setOutlet(uuid));
+  const handleOutletSelect = (id: string) => {
+    dispatch(workerInputSlice.setOutlet(id));
   };
 
   const handlePasswordChange = (newPassword: string) => {
@@ -92,6 +99,7 @@ const UseCreateWorker = () => {
     email,
     file,
     error,
+    roles,
   };
 };
 
