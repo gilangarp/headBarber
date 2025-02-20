@@ -1,6 +1,10 @@
 import { ChangeEvent, FormEvent, useState } from "react";
+import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
+import { createOutletThunk } from "../../actions/outletAction";
 
 const UseCreateOutlet = () => {
+  const dispatch = useStoreDispatch();
+  const { error, loading } = useStoreSelector((state) => state.createOutlet);
   const [formData, setFormData] = useState({
     outletName: "",
     outletCode: "",
@@ -18,10 +22,10 @@ const UseCreateOutlet = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+    dispatch(createOutletThunk(formData));
   };
 
-  return { formData, handleChange, handleSubmit };
+  return { formData, handleChange, handleSubmit, error, loading };
 };
 
 export default UseCreateOutlet;

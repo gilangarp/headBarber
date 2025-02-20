@@ -18,7 +18,14 @@ export const Router = createBrowserRouter(
     <>
       <Route
         path="/dashboard"
-        element={<DashboardLayout />}
+        element={
+          <PrivateRoute
+            to="/dashboard/login"
+            requiredRoles={["manager", "owner", "cashier"]}
+          >
+            <DashboardLayout />
+          </PrivateRoute>
+        }
         errorElement={<NotFound />}
       >
         <Route

@@ -5,6 +5,7 @@ import { PersistConfig, persistStore } from "redux-persist";
 import persistReducer from "redux-persist/es/persistReducer";
 import storage from "redux-persist/lib/storage";
 import { getAllRoleReducer } from "./getAllRoleSlice";
+import { createOutletReducer } from "./createOutletSlice";
 
 const authPersistConfig: PersistConfig<authWorkerState> = {
   key: "authWorker-token",
@@ -21,6 +22,7 @@ export const store = configureStore({
     createWorker: workerInputReducer,
     loginDashboard: persistedAuthWorkerReducer,
     getAllRole: getAllRoleReducer,
+    createOutlet: createOutletReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
