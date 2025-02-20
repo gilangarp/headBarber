@@ -4,8 +4,8 @@ import { PasswordValidation } from "../../components/Input/PasswordValidation";
 import { EmailInputField } from "../../components/Input/EmailInput";
 import ButtonFull from "../../components/Button/Button";
 import UseCreateWorker from "./UseCreateWorker";
-import DropdownRole from "../../components/Dropdown/DropdownRole";
-import DropdownOutlet from "../../components/Dropdown/DropdownOutlet";
+import DropDownRoleId from "../../components/Dropdown/DropDownRoleId";
+import DropDownOutletUuid from "../../components/Dropdown/DropDownOutletUuid";
 
 const CreateWorker = () => {
   const {
@@ -46,12 +46,12 @@ const CreateWorker = () => {
         />
       </div>
       <div className="flex flex-col lg:flex-row justify-between gap-5">
-        <DropdownOutlet
+        <DropDownOutletUuid
           buttonLabel="Outlet Code"
           data={data}
           handle={handleOutletSelect}
         />
-        <DropdownRole
+        <DropDownRoleId
           buttonLabel="Role"
           data={roles}
           handle={handleRoleSelect}

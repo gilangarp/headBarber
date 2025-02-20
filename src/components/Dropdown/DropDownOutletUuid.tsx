@@ -2,17 +2,17 @@ import { useState, useRef, useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 
 interface DropdownItem {
-  id: number;
-  name: string;
+  uuid: string;
+  code: string;
 }
 
 interface DropdownProps {
   data: DropdownItem[];
-  handle: (name: string) => void;
+  handle: (uuid: string) => void;
   buttonLabel: string;
 }
 
-const DropdownRole = ({ data, handle, buttonLabel }: DropdownProps) => {
+const DropDownOutletUuid = ({ data, handle, buttonLabel }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLabel, setSelectedLabel] = useState(buttonLabel);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -21,9 +21,9 @@ const DropdownRole = ({ data, handle, buttonLabel }: DropdownProps) => {
     setIsOpen((prev) => !prev);
   };
 
-  const handleSelect = (name: string, label: string) => {
+  const handleSelect = (uuid: string, label: string) => {
     setSelectedLabel(buttonLabel);
-    handle(name);
+    handle(uuid);
     setSelectedLabel(label);
     setIsOpen(false);
   };
@@ -44,12 +44,25 @@ const DropdownRole = ({ data, handle, buttonLabel }: DropdownProps) => {
     };
   }, []);
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter" || event.key === " ") {
+      toggleDropdown();
+    } else if (event.key === "Escape") {
+      setIsOpen(false);
+    }
+  };
+
   return (
-    <div className="relative w-full" ref={dropdownRef}>
+    <div
+      className="relative w-full"
+      ref={dropdownRef}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+    >
       <button
         id="dropdownDefaultButton"
         onClick={toggleDropdown}
-        className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700"
+        className="w-full  text-sm font-medium text-gray-900 bg-white border border-gray-600 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-primary-700 px-5 py-2.5 text-center inline-flex items-center"
         type="button"
         aria-expanded={isOpen ? "true" : "false"}
         aria-controls="dropdown"
@@ -66,13 +79,14 @@ const DropdownRole = ({ data, handle, buttonLabel }: DropdownProps) => {
         >
           <ul className="py-2 text-sm text-gray-700">
             {data.map((item) => (
-              <li key={item.id}>
+              <li key={item.uuid}>
                 <button
-                  onClick={() => handleSelect(item.name, item.name)}
+                  onClick={() => handleSelect(item.uuid, item.code)}
                   className="block capitalize w-full px-4 py-2 text-left hover:bg-gray-100"
                   role="menuitem"
+                  aria-selected={selectedLabel === item.code ? "true" : "false"}
                 >
-                  {item.name}
+                  {item.code}
                 </button>
               </li>
             ))}
@@ -83,4 +97,4 @@ const DropdownRole = ({ data, handle, buttonLabel }: DropdownProps) => {
   );
 };
 
-export default DropdownRole;
+export default DropDownOutletUuid;

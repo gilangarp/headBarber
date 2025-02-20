@@ -1,5 +1,5 @@
-import DropdownOutlet from "../../components/Dropdown/DropdownOutlet";
-import DropdownRole from "../../components/Dropdown/DropdownRole";
+import DropDownOutletCode from "../../components/Dropdown/DropDownOutletCode";
+import DropDownRoleName from "../../components/Dropdown/DropDownRoleName";
 import { isOwner } from "../../utils/access";
 import UseWorker from "./UseWorker";
 import { FaPlus, FaUndo } from "react-icons/fa";
@@ -29,12 +29,12 @@ const TableHeader = () => {
             </button>
           )}
           <div className="flex items-center w-full space-x-3 md:w-auto">
-            <DropdownRole
+            <DropDownRoleName
               buttonLabel="Role"
               data={roles}
               handle={handleRoleSelect}
             />
-            <DropdownOutlet
+            <DropDownOutletCode
               buttonLabel="Outlet"
               data={data}
               handle={handleOutletSelect}
