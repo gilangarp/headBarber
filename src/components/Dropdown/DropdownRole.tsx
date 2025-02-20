@@ -8,7 +8,7 @@ interface DropdownItem {
 
 interface DropdownProps {
   data: DropdownItem[];
-  handle: (id: number) => void;
+  handle: (name: string) => void;
   buttonLabel: string;
 }
 
@@ -21,8 +21,9 @@ const DropdownRole = ({ data, handle, buttonLabel }: DropdownProps) => {
     setIsOpen((prev) => !prev);
   };
 
-  const handleSelect = (id: number, label: string) => {
-    handle(id);
+  const handleSelect = (name: string, label: string) => {
+    setSelectedLabel(buttonLabel);
+    handle(name);
     setSelectedLabel(label);
     setIsOpen(false);
   };
@@ -48,7 +49,7 @@ const DropdownRole = ({ data, handle, buttonLabel }: DropdownProps) => {
       <button
         id="dropdownDefaultButton"
         onClick={toggleDropdown}
-        className="text-black capitalize bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
+        className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700"
         type="button"
         aria-expanded={isOpen ? "true" : "false"}
         aria-controls="dropdown"
@@ -67,7 +68,7 @@ const DropdownRole = ({ data, handle, buttonLabel }: DropdownProps) => {
             {data.map((item) => (
               <li key={item.id}>
                 <button
-                  onClick={() => handleSelect(item.id, item.name)}
+                  onClick={() => handleSelect(item.name, item.name)}
                   className="block capitalize w-full px-4 py-2 text-left hover:bg-gray-100"
                   role="menuitem"
                 >

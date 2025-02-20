@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
-import { workerInputSlice } from "../../store/workerSlice";
 import { getAllRoleThunk } from "../../actions/roleAction";
+import { workerInputAction } from "../../store/workerInputSlice";
 
 const UseCreateWorker = () => {
   const dispatch = useStoreDispatch();
@@ -24,15 +24,15 @@ const UseCreateWorker = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     if (id === "first_name") {
-      dispatch(workerInputSlice.setFirstName(value));
+      dispatch(workerInputAction.setFirstName(value));
     } else if (id === "last_name") {
-      dispatch(workerInputSlice.setLastName(value));
+      dispatch(workerInputAction.setLastName(value));
     }
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files ? event.target.files[0] : null;
-    dispatch(workerInputSlice.setFile(selectedFile));
+    dispatch(workerInputAction.setFile(selectedFile));
   };
 
   const data = [
@@ -42,19 +42,19 @@ const UseCreateWorker = () => {
   ];
 
   const handleRoleSelect = (id: number) => {
-    dispatch(workerInputSlice.setRole(id));
+    dispatch(workerInputAction.setRole(id));
   };
 
   const handleOutletSelect = (id: string) => {
-    dispatch(workerInputSlice.setOutlet(id));
+    dispatch(workerInputAction.setOutlet(id));
   };
 
   const handlePasswordChange = (newPassword: string) => {
-    dispatch(workerInputSlice.setPassword(newPassword));
+    dispatch(workerInputAction.setPassword(newPassword));
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(workerInputSlice.setEmail(e.target.value));
+    dispatch(workerInputAction.setEmail(e.target.value));
   };
 
   const handleConfirm = () => {

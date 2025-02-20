@@ -8,7 +8,7 @@ interface DropdownItem {
 
 interface DropdownProps {
   data: DropdownItem[];
-  handle: (uuid: string) => void;
+  handle: (code: string) => void;
   buttonLabel: string;
 }
 
@@ -22,12 +22,12 @@ const DropdownOutlet = ({ data, handle, buttonLabel }: DropdownProps) => {
   };
 
   const handleSelect = (uuid: string, label: string) => {
+    setSelectedLabel(buttonLabel);
     handle(uuid);
     setSelectedLabel(label);
     setIsOpen(false);
   };
 
-  // Close dropdown when clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -44,7 +44,6 @@ const DropdownOutlet = ({ data, handle, buttonLabel }: DropdownProps) => {
     };
   }, []);
 
-  // Keyboard navigation support
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Enter" || event.key === " ") {
       toggleDropdown();
@@ -57,13 +56,13 @@ const DropdownOutlet = ({ data, handle, buttonLabel }: DropdownProps) => {
     <div
       className="relative w-full"
       ref={dropdownRef}
-      onKeyDown={handleKeyDown} // Allow keyboard interaction for the dropdown
-      tabIndex={0} // Make the dropdown focusable
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
     >
       <button
         id="dropdownDefaultButton"
         onClick={toggleDropdown}
-        className="text-black capitalize bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center w-full"
+        className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700"
         type="button"
         aria-expanded={isOpen ? "true" : "false"}
         aria-controls="dropdown"
@@ -82,10 +81,10 @@ const DropdownOutlet = ({ data, handle, buttonLabel }: DropdownProps) => {
             {data.map((item) => (
               <li key={item.uuid}>
                 <button
-                  onClick={() => handleSelect(item.uuid, item.code)}
+                  onClick={() => handleSelect(item.code, item.code)}
                   className="block capitalize w-full px-4 py-2 text-left hover:bg-gray-100"
                   role="menuitem"
-                  aria-selected={selectedLabel === item.code ? "true" : "false"} // Dynamically set aria-selected
+                  aria-selected={selectedLabel === item.code ? "true" : "false"}
                 >
                   {item.code}
                 </button>

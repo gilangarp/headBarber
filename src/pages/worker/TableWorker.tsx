@@ -1,69 +1,54 @@
 import { Link } from "react-router-dom";
+import UseWorker from "./UseWorker";
 
 const TableWorker = () => {
-  const data = [
-    {
-      uuid: "9b072c5a-8df2-49f5-94bc-9112b1fff83d",
-      fullName: "Isabella Marie",
-      image: "http://localhost:8000/uploads/file-1739799103930-335641227.jpeg",
-      role: "owner",
-      outletCode: "hdbr01",
-      createdAt: "2025-02-17",
-    },
-    {
-      uuid: "0f4ecec2-9663-4e0c-9968-5f3f7aa0d7bf",
-      fullName: "Baylee Camilla",
-      image: "http://localhost:8000/uploads/file-1739837787405-231734132.jpg",
-      role: "cashier",
-      outletCode: "hdbr01",
-      createdAt: "2025-02-18",
-    },
-  ];
+  const { worker } = UseWorker();
   return (
-    <div>
-      <table className="w-full text-sm text-left text-gray-500 ">
+    <div className="overflow-auto ">
+      <table className="w-full text-base text-left text-gray-500 ">
         <thead className="text-xs text-gray-700 uppercase bg-primary-100">
           <tr>
-            <th scope="col" className="px-4 py-3">
+            <th scope="col" className="text-sm px-4 py-3 border-l">
               Full Name
             </th>
-            <th scope="col" className="px-4 py-3">
+            <th scope="col" className="text-sm text-nowrap px-4 py-3 border-l">
               Outlet Code
             </th>
-            <th scope="col" className="px-4 py-3">
+            <th scope="col" className="text-sm px-4 py-3 border-l">
               Role
             </th>
-            <th scope="col" className="px-4 py-3">
-              Created At
+            <th scope="col" className="text-sm px-4 py-3 border-l border-r">
+              Come To Work
             </th>
           </tr>
         </thead>
         <tbody>
-          {data.map((worker) => (
-            <tr className="border-b hover:bg-gray-100">
-              <th scope="row">
+          {worker.map((data) => (
+            <tr key={data.uuid} className="border-b hover:bg-gray-100">
+              <th scope="row" className="border-l border-gray-300">
                 <Link
-                  to={`/dashboard/worker/${worker.uuid}`}
-                  className="flex items-center px-4 py-2 font-medium text-black whitespace-nowrap "
+                  to={`/dashboard/worker/${data.uuid}`}
+                  className="flex items-center px-4 py-2 font-medium text-black whitespace-nowrap truncate"
                 >
                   <img
-                    src={worker.image}
-                    alt={worker.fullName}
+                    src={data.image}
+                    alt={data.fullName}
                     className="h-8 w-8 rounded-full object-cover mr-3"
                   />
-                  {worker.fullName}
+                  {data.fullName}
                 </Link>
               </th>
-              <td className="px-4 py-2">
-                <span className="text-black text-xs font-medium px-2 py-0.5 rounded">
-                  {worker.outletCode}
+
+              <td className="px-4 py-2 border-l">
+                <span className="text-black font-medium px-2 py-0.5 rounded">
+                  {data.outletCode}
                 </span>
               </td>
-              <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap">
-                <div className="flex items-center">{worker.role}</div>
+              <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap border-l">
+                <div className="flex items-center">{data.role}</div>
               </td>
-              <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap ">
-                {worker.createdAt}
+              <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap border-l border-r">
+                {data.createdAt}
               </td>
             </tr>
           ))}

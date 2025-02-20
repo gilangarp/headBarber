@@ -5,10 +5,8 @@ interface WorkerState {
   password: string;
   error: string;
   email: string;
-
   firstName: string;
   lastName: string;
-
   selectedRoleUuid: number | null;
   selectedOutletUuid: string | null;
 }
@@ -24,7 +22,7 @@ const initialState: WorkerState = {
   selectedOutletUuid: null,
 };
 
-const createWorkerSlice = createSlice({
+const workerInputSlice = createSlice({
   name: "worker",
   initialState,
   reducers: {
@@ -55,9 +53,9 @@ const createWorkerSlice = createSlice({
   },
 });
 
-export const workerInputSlice = {
-  ...createWorkerSlice.actions,
+export const workerInputAction = {
+  ...workerInputSlice.actions,
 };
 
-export type workerInputState = ReturnType<typeof createWorkerSlice.reducer>;
-export const workerInputReducer = createWorkerSlice.reducer;
+export type workerInputState = ReturnType<typeof workerInputSlice.reducer>;
+export const workerInputReducer = workerInputSlice.reducer;
