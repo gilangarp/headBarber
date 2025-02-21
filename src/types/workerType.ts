@@ -25,9 +25,20 @@ export interface IFilterSuperUser {
   outletCode?: string;
 }
 
+export interface IWorkerCreate {
+  file: File;
+  roleId: string;
+  outletId: string;
+  password: string;
+}
+
 export interface IAuthWorkerResponse extends IResponse {
   data: IWorkerLoginResponse;
 }
 export interface IWorkerArrayResponse extends IResponse {
   data: IWorkerRespone[];
+}
+
+export interface IWorkerCreateRespone extends IResponse {
+  message: string;
 }

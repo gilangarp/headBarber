@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { getAllRoleThunk } from "../../actions/roleAction";
-import { workerInputAction } from "../../store/workerInputSlice";
+import { createWorkerAction } from "../../store/createInputSlice";
+import { createWorkerThunk } from "../../actions/workerAction";
 
 const UseCreateWorker = () => {
   const dispatch = useStoreDispatch();
@@ -14,9 +15,11 @@ const UseCreateWorker = () => {
     lastName,
     selectedRoleUuid,
     selectedOutletUuid,
+    successMessage,
   } = useStoreSelector((state) => state.createWorker);
 
   const { roles } = useStoreSelector((state) => state.getAllRole);
+  const { token } = useStoreSelector((state) => state.loginDashboard);
   useEffect(() => {
     dispatch(getAllRoleThunk());
   }, [dispatch]);
@@ -24,37 +27,38 @@ const UseCreateWorker = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     if (id === "first_name") {
-      dispatch(workerInputAction.setFirstName(value));
+      dispatch(createWorkerAction.setFirstName(value));
     } else if (id === "last_name") {
-      dispatch(workerInputAction.setLastName(value));
+      dispatch(createWorkerAction.setLastName(value));
     }
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files ? event.target.files[0] : null;
-    dispatch(workerInputAction.setFile(selectedFile));
+    dispatch(createWorkerAction.setFile(selectedFile));
   };
 
   const data = [
-    { uuid: "1", code: "Item 1" },
-    { uuid: "2", code: "Item 2" },
-    { uuid: "3", code: "Item 3" },
+    { uuid: "93866bbd-9c22-475f-93d3-7f6c2dc6cdc0", code: "hdbr01" },
+    { uuid: "f7fe4832-667e-42ac-8b88-d4c39760f968", code: "hdbr02" },
+    { uuid: "0b1c2b9c-a345-46db-812a-3159ec5ec6ff", code: "hdbr03" },
   ];
 
-  const handleRoleSelect = (id: number) => {
-    dispatch(workerInputAction.setRole(id));
+  const handleRoleSelect = (id: string) => {
+    console.log(id);
+    dispatch(createWorkerAction.setRole(id));
   };
 
   const handleOutletSelect = (id: string) => {
-    dispatch(workerInputAction.setOutlet(id));
+    dispatch(createWorkerAction.setOutlet(id));
   };
 
   const handlePasswordChange = (newPassword: string) => {
-    dispatch(workerInputAction.setPassword(newPassword));
+    dispatch(createWorkerAction.setPassword(newPassword));
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(workerInputAction.setEmail(e.target.value));
+    dispatch(createWorkerAction.setEmail(e.target.value));
   };
 
   const handleConfirm = () => {
@@ -65,7 +69,8 @@ const UseCreateWorker = () => {
       !password ||
       !file ||
       !selectedRoleUuid ||
-      !selectedOutletUuid
+      !selectedOutletUuid ||
+      !token
     ) {
       alert("Please fill all fields correctly.");
       return;
@@ -73,15 +78,17 @@ const UseCreateWorker = () => {
 
     const confirmAction = window.confirm("Are you sure you want to submit?");
     if (confirmAction) {
-      console.log("Form data submitted", {
+      const data = {
         firstName,
         lastName,
         email,
         password,
         file,
-        selectedRoleUuid,
-        selectedOutletUuid,
-      });
+        roleId: selectedRoleUuid,
+        outletId: selectedOutletUuid,
+      };
+
+      dispatch(createWorkerThunk({ form: data, token }));
     }
   };
   return {
@@ -100,6 +107,7 @@ const UseCreateWorker = () => {
     file,
     error,
     roles,
+    successMessage,
   };
 };
 

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createWorkerThunk } from "../actions/workerAction";
 
 interface WorkerState {
   file: File | null;
@@ -7,8 +8,10 @@ interface WorkerState {
   email: string;
   firstName: string;
   lastName: string;
-  selectedRoleUuid: number | null;
+  selectedRoleUuid: string | null;
   selectedOutletUuid: string | null;
+  loading: boolean;
+  successMessage: string;
 }
 
 const initialState: WorkerState = {
@@ -20,9 +23,11 @@ const initialState: WorkerState = {
   lastName: "",
   selectedRoleUuid: null,
   selectedOutletUuid: null,
+  loading: false,
+  successMessage: "",
 };
 
-const workerInputSlice = createSlice({
+const createWorkerSlice = createSlice({
   name: "worker",
   initialState,
   reducers: {
@@ -44,18 +49,38 @@ const workerInputSlice = createSlice({
     setLastName: (state, action: PayloadAction<string>) => {
       state.lastName = action.payload;
     },
-    setRole: (state, action: PayloadAction<number | null>) => {
+    setRole: (state, action: PayloadAction<string | null>) => {
       state.selectedRoleUuid = action.payload;
     },
     setOutlet: (state, action: PayloadAction<string | null>) => {
       state.selectedOutletUuid = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createWorkerThunk.pending, (state) => {
+        state.loading = true; // Start loading
+        state.error = "";
+        state.successMessage = "";
+      })
+      .addCase(createWorkerThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.successMessage = action.payload;
+      })
+      .addCase(createWorkerThunk.rejected, (state, action) => {
+        state.loading = false;
+        if (action.payload?.error?.message) {
+          state.error = action.payload.error.message;
+        } else {
+          state.error = "An unexpected error occurred.";
+        }
+      });
+  },
 });
 
-export const workerInputAction = {
-  ...workerInputSlice.actions,
+export const createWorkerAction = {
+  ...createWorkerSlice.actions,
 };
 
-export type workerInputState = ReturnType<typeof workerInputSlice.reducer>;
-export const workerInputReducer = workerInputSlice.reducer;
+export type createWorkerState = ReturnType<typeof createWorkerSlice.reducer>;
+export const createWorkerReducer = createWorkerSlice.reducer;

@@ -4,8 +4,7 @@ import { PasswordValidation } from "../../components/Input/PasswordValidation";
 import { EmailInputField } from "../../components/Input/EmailInput";
 import ButtonFull from "../../components/Button/Button";
 import UseCreateWorker from "./UseCreateWorker";
-import DropDownRoleId from "../../components/Dropdown/DropDownRoleId";
-import DropDownOutletUuid from "../../components/Dropdown/DropDownOutletUuid";
+import DropdownSelect from "../../components/Dropdown/DropdownSelect";
 
 const CreateWorker = () => {
   const {
@@ -24,6 +23,7 @@ const CreateWorker = () => {
     email,
     file,
     roles,
+    successMessage,
   } = UseCreateWorker();
   return (
     <div className="flex flex-col gap-3">
@@ -45,16 +45,20 @@ const CreateWorker = () => {
           onChange={handleInputChange}
         />
       </div>
-      <div className="flex flex-col lg:flex-row justify-between gap-5">
-        <DropDownOutletUuid
-          buttonLabel="Outlet Code"
+      <div className="flex flex-col w-full lg:flex-row justify-between gap-5">
+        <DropdownSelect
           data={data}
-          handle={handleOutletSelect}
+          lable="Outlet Code"
+          labelKey="code"
+          valueKey="uuid"
+          onChange={handleOutletSelect}
         />
-        <DropDownRoleId
-          buttonLabel="Role"
+        <DropdownSelect
           data={roles}
-          handle={handleRoleSelect}
+          lable="Role"
+          labelKey="name"
+          valueKey="id"
+          onChange={handleRoleSelect}
         />
       </div>
       <PasswordValidation
@@ -75,6 +79,7 @@ const CreateWorker = () => {
       <div>
         <ButtonFull label="Confirm" onClick={handleConfirm} />
       </div>
+      {successMessage && <div className="text-red-500">{successMessage}</div>}
     </div>
   );
 };

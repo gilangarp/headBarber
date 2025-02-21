@@ -27,7 +27,7 @@ export const PasswordValidation = ({
     setShowConfirmPassword((prev) => !prev);
 
   return (
-    <div>
+    <form>
       <div className="flex flex-col lg:flex-row justify-between gap-5">
         <InputField
           id="password"
@@ -56,6 +56,6 @@ export const PasswordValidation = ({
       {combinedError && (
         <p className="text-red-500 text-sm mt-2">{combinedError}</p>
       )}
-    </div>
+    </form>
   );
 };

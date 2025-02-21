@@ -5,6 +5,8 @@ import {
   IFilterSuperUser,
   ILoginWorkerForm,
   IWorkerArrayResponse,
+  IWorkerCreate,
+  IWorkerCreateRespone,
   IWorkerLoginResponse,
   IWorkerRespone,
 } from "../types/workerType";
@@ -71,6 +73,50 @@ export const getAllWorkerThunk = createAsyncThunk<
       }
     );
     return response.data.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const errorResponse: IResponse = error.response?.data || {};
+      const errorMessage =
+        errorResponse.error?.message || "An unexpected error occurred.";
+      const errorDetails = errorResponse.error?.details;
+
+      return rejectWithValue({
+        error: {
+          message: errorMessage,
+          details: errorDetails,
+        },
+      });
+    }
+
+    return rejectWithValue({
+      error: {
+        message: "An unexpected error occurred.",
+      },
+    });
+  }
+});
+
+export const createWorkerThunk = createAsyncThunk<
+  string,
+  { form: IWorkerCreate; token: string },
+  { rejectValue: IResponse }
+>("workerThunk/post", async ({ form, token }, { rejectWithValue }) => {
+  const url = `${import.meta.env.VITE_REACT_APP_API_URL}/dashboard/worker/add`;
+  try {
+    const response: AxiosResponse<IWorkerCreateRespone> = await axios.post(
+      url,
+      form,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log(response.data.message);
+
+    return response.data.message;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const errorResponse: IResponse = error.response?.data || {};
