@@ -1,5 +1,5 @@
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
-import Button from "../../components/Button/Button";
+import Button from "../../components/button/Button";
 import { useStoreSelector } from "../../hooks/useStore";
 import { useNavigate } from "react-router-dom";
 import { isOwnerOrManager } from "../../utils/access";

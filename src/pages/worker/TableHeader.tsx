@@ -1,4 +1,4 @@
-import DropdownSelect from "../../components/Dropdown/DropdownSelect";
+import DropdownSelect from "../../components/dropdown/DropdownSelect";
 import { isOwner } from "../../utils/access";
 import UseWorker from "./UseWorker";
 import { FaPlus, FaUndo } from "react-icons/fa";

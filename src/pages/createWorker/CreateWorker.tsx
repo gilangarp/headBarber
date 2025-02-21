@@ -2,9 +2,10 @@ import FileUpload from "../../components/Input/FileUpload";
 import { InputField } from "../../components/Input/InputField";
 import { PasswordValidation } from "../../components/Input/PasswordValidation";
 import { EmailInputField } from "../../components/Input/EmailInput";
-import ButtonFull from "../../components/Button/Button";
+import ButtonFull from "../../components/button/Button";
 import UseCreateWorker from "./UseCreateWorker";
-import DropdownSelect from "../../components/Dropdown/DropdownSelect";
+import DropdownSelect from "../../components/dropdown/DropdownSelect";
+import SuccessAlert from "../../components/alert/SuccessAlert";
 
 const CreateWorker = () => {
   const {
@@ -27,6 +28,7 @@ const CreateWorker = () => {
   } = UseCreateWorker();
   return (
     <div className="flex flex-col gap-3">
+      {successMessage && <SuccessAlert message={successMessage} />}
       <div className="flex justify-between gap-5">
         <InputField
           id="first_name"
@@ -79,7 +81,6 @@ const CreateWorker = () => {
       <div>
         <ButtonFull label="Confirm" onClick={handleConfirm} />
       </div>
-      {successMessage && <div className="text-red-500">{successMessage}</div>}
     </div>
   );
 };
