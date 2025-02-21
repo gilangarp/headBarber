@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { getAllRoleThunk } from "../../actions/roleAction";
 import { createWorkerAction } from "../../store/createInputSlice";
@@ -11,15 +11,19 @@ const UseCreateWorker = () => {
     password,
     email,
     firstName,
-    error,
+    errorCreate,
     lastName,
     selectedRoleUuid,
     selectedOutletUuid,
     successMessage,
   } = useStoreSelector((state) => state.createWorker);
 
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showErrorInput, setShowErrorInput] = useState(false);
+
   const { roles } = useStoreSelector((state) => state.getAllRole);
   const { token } = useStoreSelector((state) => state.loginDashboard);
+
   useEffect(() => {
     dispatch(getAllRoleThunk());
   }, [dispatch]);
@@ -45,7 +49,6 @@ const UseCreateWorker = () => {
   ];
 
   const handleRoleSelect = (id: string) => {
-    console.log(id);
     dispatch(createWorkerAction.setRole(id));
   };
 
@@ -69,45 +72,78 @@ const UseCreateWorker = () => {
       !password ||
       !file ||
       !selectedRoleUuid ||
-      !selectedOutletUuid ||
-      !token
+      !selectedOutletUuid
     ) {
-      alert("Please fill all fields correctly.");
+      setShowErrorInput(true);
       return;
     }
 
-    const confirmAction = window.confirm("Are you sure you want to submit?");
-    if (confirmAction) {
-      const data = {
-        firstName,
-        lastName,
-        email,
-        password,
-        file,
-        roleId: selectedRoleUuid,
-        outletId: selectedOutletUuid,
-      };
-
-      dispatch(createWorkerThunk({ form: data, token }));
-    }
+    setShowErrorInput(false);
+    setShowConfirmation(true);
   };
+
+  const handleConfirmAction = () => {
+    if (
+      !firstName ||
+      !lastName ||
+      !email ||
+      !password ||
+      !file ||
+      !selectedRoleUuid ||
+      !selectedOutletUuid ||
+      !token
+    ) {
+      return;
+    }
+
+    const result = {
+      firstName,
+      lastName,
+      email,
+      password,
+      file,
+      roleId: selectedRoleUuid,
+      outletId: selectedOutletUuid,
+    };
+    dispatch(createWorkerThunk({ form: result, token }));
+    setShowConfirmation(false);
+  };
+
+  const handleCancelAction = () => {
+    setShowConfirmation(false);
+  };
+
   return {
+    // Handlers for actions
     handleConfirm,
+    handleConfirmAction,
+    handleCancelAction,
     handleEmailChange,
     handlePasswordChange,
     handleOutletSelect,
     handleRoleSelect,
-    data,
     handleFileChange,
     handleInputChange,
+
+    // States for modal visibility and error handling
+    showConfirmation,
+    showErrorInput,
+    setShowConfirmation,
+
+    // Form data
     firstName,
     lastName,
     password,
     email,
     file,
-    error,
-    roles,
+
+    // Additional state and data
+    errorCreate,
     successMessage,
+
+    // Data used for dropdown selections
+    data,
+    roles,
   };
 };
 

@@ -6,29 +6,53 @@ import ButtonFull from "../../components/button/Button";
 import UseCreateWorker from "./UseCreateWorker";
 import DropdownSelect from "../../components/dropdown/DropdownSelect";
 import SuccessAlert from "../../components/alert/SuccessAlert";
+import ConfirmationAlert from "../../components/alert/ConfirmationAlert";
+import ErrorAlert from "../../components/alert/ErrorAlert";
 
 const CreateWorker = () => {
   const {
-    handleConfirm,
+    // Handlers for actions
+    handleConfirmAction,
+    handleCancelAction,
     handleEmailChange,
     handlePasswordChange,
     handleOutletSelect,
     handleRoleSelect,
     handleFileChange,
     handleInputChange,
-    data,
-    error,
+
+    // States for modal visibility and error handling
+    showConfirmation,
+    showErrorInput,
+    setShowConfirmation,
+
+    // Form data
     firstName,
     lastName,
     password,
     email,
     file,
-    roles,
+
+    // Additional state and data
+    errorCreate,
     successMessage,
+
+    // Data used for dropdown selections
+    data,
+    roles,
   } = UseCreateWorker();
   return (
     <div className="flex flex-col gap-3">
       {successMessage && <SuccessAlert message={successMessage} />}
+      {errorCreate && <ErrorAlert message={errorCreate} />}
+      {showErrorInput && <ErrorAlert message="" />}
+      {showConfirmation && (
+        <ConfirmationAlert
+          message="Are you sure you want to submit?"
+          onCancel={handleCancelAction}
+          onConfirm={handleConfirmAction}
+        />
+      )}
       <div className="flex justify-between gap-5">
         <InputField
           id="first_name"
@@ -65,7 +89,7 @@ const CreateWorker = () => {
       </div>
       <PasswordValidation
         password={password}
-        error={error}
+        error=""
         onPasswordChange={handlePasswordChange}
       />
       <EmailInputField
@@ -77,9 +101,8 @@ const CreateWorker = () => {
         onChange={handleEmailChange}
       />
       <FileUpload file={file} handle={handleFileChange} />
-
       <div>
-        <ButtonFull label="Confirm" onClick={handleConfirm} />
+        <ButtonFull label="Confirm" onClick={() => setShowConfirmation(true)} />
       </div>
     </div>
   );

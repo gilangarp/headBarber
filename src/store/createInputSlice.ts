@@ -4,7 +4,7 @@ import { createWorkerThunk } from "../actions/workerAction";
 interface WorkerState {
   file: File | null;
   password: string;
-  error: string;
+  errorCreate: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -17,7 +17,7 @@ interface WorkerState {
 const initialState: WorkerState = {
   file: null,
   password: "",
-  error: "",
+  errorCreate: "",
   email: "",
   firstName: "",
   lastName: "",
@@ -38,7 +38,7 @@ const createWorkerSlice = createSlice({
       state.password = action.payload;
     },
     setError: (state, action: PayloadAction<string>) => {
-      state.error = action.payload;
+      state.errorCreate = action.payload;
     },
     setEmail: (state, action: PayloadAction<string>) => {
       state.email = action.payload;
@@ -60,7 +60,7 @@ const createWorkerSlice = createSlice({
     builder
       .addCase(createWorkerThunk.pending, (state) => {
         state.loading = true; // Start loading
-        state.error = "";
+        state.errorCreate = "";
         state.successMessage = "";
       })
       .addCase(createWorkerThunk.fulfilled, (state, action) => {
@@ -70,9 +70,9 @@ const createWorkerSlice = createSlice({
       .addCase(createWorkerThunk.rejected, (state, action) => {
         state.loading = false;
         if (action.payload?.error?.message) {
-          state.error = action.payload.error.message;
+          state.errorCreate = action.payload.error.message;
         } else {
-          state.error = "An unexpected error occurred.";
+          state.errorCreate = "An unexpected error occurred.";
         }
       });
   },
