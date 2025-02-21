@@ -8,6 +8,7 @@ import { createOutletReducer } from "./createOutletSlice";
 import { getAllWorkerReducer } from "./getAllWorkerSlice";
 import { createWorkerReducer } from "./createInputSlice";
 import { getByIdWorkerReducer } from "./getByIdWorkerSlice";
+import { getAllOutletReducer } from "./getAllOutletSlice";
 
 const authPersistConfig: PersistConfig<authWorkerState> = {
   key: "authWorker-token",
@@ -27,6 +28,7 @@ export const store = configureStore({
     createOutlet: createOutletReducer,
     getAllWorker: getAllWorkerReducer,
     getByIdWorker: getByIdWorkerReducer,
+    getAllOutlet: getAllOutletReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
