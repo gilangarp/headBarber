@@ -16,6 +16,7 @@ const UseSidebarWithNavbar = () => {
       dispatch(getByIdWorkerThunk({ token, uuid }));
     }
   }, [dispatch, token, uuid]);
+
   const navigate = useNavigate();
 
   const logout = () => {
