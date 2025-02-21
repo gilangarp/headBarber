@@ -3,7 +3,7 @@ import TableWorker from "./TableWorker";
 
 const Worker = () => {
   return (
-    <div className="flex flex-col gap-2 px-4 mx-auto max-w-screen-2xl lg:px-12">
+    <div className="flex flex-col gap-2 mx-auto ">
       <TableHeader />
       <TableWorker />
     </div>

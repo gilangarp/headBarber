@@ -7,11 +7,11 @@ const TableWorker = () => {
     <div className="overflow-auto ">
       <table className="w-full text-base text-left text-gray-500 ">
         <thead className="text-xs text-gray-700 uppercase bg-primary-100">
-          <tr>
+          <tr className="text-nowrap">
             <th scope="col" className="text-sm px-4 py-3 border-l">
               Full Name
             </th>
-            <th scope="col" className="text-sm text-nowrap px-4 py-3 border-l">
+            <th scope="col" className="text-sm  px-4 py-3 border-l">
               Outlet Code
             </th>
             <th scope="col" className="text-sm px-4 py-3 border-l">
