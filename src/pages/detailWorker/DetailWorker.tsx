@@ -10,7 +10,6 @@ const DetailWorker = () => {
   const { token } = useStoreSelector((state) => state.loginDashboard);
   const { worker } = useStoreSelector((state) => state.getByIdWorker);
 
-  console.log(id);
   useEffect(() => {
     if (id && token) {
       dispatch(getByIdWorkerThunk({ token, uuid: id }));

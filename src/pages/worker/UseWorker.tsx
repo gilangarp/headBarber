@@ -41,7 +41,6 @@ const UseWorker = () => {
 
   useEffect(() => {
     if (token && filter) {
-      console.log(filter);
       dispatch(getAllWorkerThunk({ token, filter }));
     }
   }, [dispatch, token, filter]);
