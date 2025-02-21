@@ -3,6 +3,7 @@ import { InputField } from "../../components/Input/InputField";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { EmailInputField } from "../../components/Input/EmailInput";
 import UseLoginDashboard from "./UseLoginDashboard";
+import ErrorAlert from "../../components/alert/ErrorAlert";
 
 const FormLogin = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -45,7 +46,7 @@ const FormLogin = () => {
           >
             Sign in
           </button>
-          {error && <div className="text-red-500">{error}</div>}
+          {error && <ErrorAlert message={error} />}
         </form>
       </div>
     </section>
