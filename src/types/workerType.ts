@@ -20,6 +20,18 @@ export interface IWorkerRespone {
   createdAt: string;
 }
 
+export interface IGetByIdWorkerRespone {
+  uuid: string;
+  fullName: string;
+  email: string;
+  image: string;
+  role: string;
+  outletName: string;
+  outletCode: string;
+  monthsOfService: string;
+  createdAt: string;
+}
+
 export interface IFilterSuperUser {
   roleName?: string;
   outletCode?: string;
@@ -41,4 +53,7 @@ export interface IWorkerArrayResponse extends IResponse {
 
 export interface IWorkerCreateRespone extends IResponse {
   message: string;
+}
+export interface IGetDetailWorkerRespone extends IResponse {
+  data: IGetByIdWorkerRespone;
 }

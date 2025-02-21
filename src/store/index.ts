@@ -7,6 +7,7 @@ import { getAllRoleReducer } from "./getAllRoleSlice";
 import { createOutletReducer } from "./createOutletSlice";
 import { getAllWorkerReducer } from "./getAllWorkerSlice";
 import { createWorkerReducer } from "./createInputSlice";
+import { getByIdWorkerReducer, getByIdWorkerState } from "./getByIdWorkerSlice";
 
 const authPersistConfig: PersistConfig<authWorkerState> = {
   key: "authWorker-token",
@@ -18,6 +19,16 @@ const persistedAuthWorkerReducer = persistReducer(
   authWorkerReducer
 );
 
+const getByIdWorkerPersistConfig: PersistConfig<getByIdWorkerState> = {
+  key: "getByIdWorker",
+  storage,
+  whitelist: ["uuid", "role", "email", "image", "fullName"],
+};
+const persistedGetByIdWorkerReducer = persistReducer(
+  getByIdWorkerPersistConfig,
+  getByIdWorkerReducer
+);
+
 export const store = configureStore({
   reducer: {
     createWorker: createWorkerReducer,
@@ -25,6 +36,7 @@ export const store = configureStore({
     getAllRole: getAllRoleReducer,
     createOutlet: createOutletReducer,
     getAllWorker: getAllWorkerReducer,
+    getByIdWorker: persistedGetByIdWorkerReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
