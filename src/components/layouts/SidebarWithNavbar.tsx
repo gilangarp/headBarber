@@ -5,14 +5,15 @@ import { CiLogout } from "react-icons/ci";
 import { isOwnerOrManager } from "../../utils/access";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
+import logo from "../../assets/Logo .png";
 
 const SidebarWithNavbar = () => {
-  const { currentPath, logout, worker } = UseSidebarWithNavbar();
+  const { currentPath, logout, worker, role } = UseSidebarWithNavbar();
 
   return (
     <>
       <nav className="fixed top-0 z-50 w-full bg-[#F7F8FA]">
-        <div className="px-3 py-3 lg:px-5 lg:pl-3">
+        <div className="px-3 lg:px-5 lg:pl-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center justify-start rtl:justify-end">
               <button
@@ -27,8 +28,8 @@ const SidebarWithNavbar = () => {
               </button>
               <a href="/dashboard" className="flex ms-2 md:me-24">
                 <img
-                  src="https://flowbite.com/docs/images/logo.svg"
-                  className="h-8 me-3"
+                  src={logo}
+                  className="h-14 w-auto me-3"
                   alt="FlowBite Logo"
                 />
               </a>
@@ -113,7 +114,7 @@ const SidebarWithNavbar = () => {
                 <span className="ms-3">Schedule</span>
               </a>
             </li>
-            {isOwnerOrManager(worker?.role ?? "") && (
+            {isOwnerOrManager(role ?? "") && (
               <li>
                 <a
                   href="/dashboard/worker"
@@ -128,7 +129,7 @@ const SidebarWithNavbar = () => {
                 </a>
               </li>
             )}
-            {isOwnerOrManager(worker?.role ?? "") && (
+            {isOwnerOrManager(role ?? "") && (
               <li>
                 <a
                   href="/dashboard/outlet"

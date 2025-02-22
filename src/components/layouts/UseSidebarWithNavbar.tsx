@@ -8,7 +8,9 @@ const UseSidebarWithNavbar = () => {
   const dispatch = useStoreDispatch();
   const location = useLocation();
   const currentPath = location.pathname;
-  const { token, uuid } = useStoreSelector((state) => state.loginDashboard);
+  const { token, uuid, role } = useStoreSelector(
+    (state) => state.loginDashboard
+  );
   const { worker } = useStoreSelector((state) => state.getByIdWorker);
 
   useEffect(() => {
@@ -24,7 +26,7 @@ const UseSidebarWithNavbar = () => {
     navigate("/dashboard/login");
   };
 
-  return { currentPath, logout, worker };
+  return { currentPath, logout, worker, role };
 };
 
 export default UseSidebarWithNavbar;
