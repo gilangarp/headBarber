@@ -24,7 +24,7 @@ const TableOutlet = () => {
             <tr key={data.uuid} className="border-b hover:bg-gray-100">
               <th scope="row" className="border-l border-gray-300">
                 <Link
-                  to={`/dashboard/worker/${data.uuid}`}
+                  to={`/dashboard/outlet/${data.uuid}`}
                   className="flex items-center px-4 py-2 font-medium text-black whitespace-nowrap truncate"
                 >
                   {data.outletName}

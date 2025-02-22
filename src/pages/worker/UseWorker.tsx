@@ -19,12 +19,6 @@ const UseWorker = () => {
     dispatch(getAllWorkerActions.resetFilter());
   };
 
-  const data = [
-    { uuid: "1", code: "Item 1" },
-    { uuid: "2", code: "Item 2" },
-    { uuid: "3", code: "Item 3" },
-  ];
-
   const { role } = useStoreSelector((state) => state.loginDashboard);
   const { roles } = useStoreSelector((state) => state.getAllRole);
   useEffect(() => {
@@ -49,7 +43,6 @@ const UseWorker = () => {
     worker,
     handleOutletSelect,
     handleRoleSelect,
-    data,
     roles,
     handleAddWorker,
     role,

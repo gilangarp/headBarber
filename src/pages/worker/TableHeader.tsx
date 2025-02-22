@@ -1,5 +1,6 @@
 import DropdownSelect from "../../components/dropdown/DropdownSelect";
 import { isOwner } from "../../utils/access";
+import UseOutlet from "../outlet/UseOutlet";
 import UseWorker from "./UseWorker";
 import { FaPlus, FaUndo } from "react-icons/fa";
 
@@ -9,10 +10,10 @@ const TableHeader = () => {
     role,
     roles,
     handleRoleSelect,
-    data,
     handleOutletSelect,
     onReset,
   } = UseWorker();
+  const { outlets } = UseOutlet();
   return (
     <section className="w-full bg-primary-100 shadow-md">
       <div className="flex flex-col items-center justify-between py-3 px-4 space-y-4 md:flex-row md:space-y-0 md:space-x-4">
@@ -39,9 +40,9 @@ const TableHeader = () => {
             </div>
             <div className="w-36">
               <DropdownSelect
-                data={data}
-                labelKey="code"
-                valueKey="code"
+                data={outlets}
+                labelKey="outletCode"
+                valueKey="outletCode"
                 lable="Outlet"
                 onChange={handleOutletSelect}
               />

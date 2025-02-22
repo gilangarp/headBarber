@@ -42,12 +42,6 @@ const UseCreateWorker = () => {
     dispatch(createWorkerAction.setFile(selectedFile));
   };
 
-  const data = [
-    { uuid: "93866bbd-9c22-475f-93d3-7f6c2dc6cdc0", code: "hdbr01" },
-    { uuid: "f7fe4832-667e-42ac-8b88-d4c39760f968", code: "hdbr02" },
-    { uuid: "0b1c2b9c-a345-46db-812a-3159ec5ec6ff", code: "hdbr03" },
-  ];
-
   const handleRoleSelect = (id: string) => {
     dispatch(createWorkerAction.setRole(id));
   };
@@ -142,7 +136,6 @@ const UseCreateWorker = () => {
     successMessage,
 
     // Data used for dropdown selections
-    data,
     roles,
   };
 };
