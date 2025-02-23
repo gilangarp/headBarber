@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { useEffect } from "react";
 import { getByIdWorkerThunk } from "../../actions/workerAction";
-import TableSchedule from "../../components/table/TableSchedule";
 
 const DetailWorker = () => {
   const dispatch = useStoreDispatch();
@@ -35,9 +34,7 @@ const DetailWorker = () => {
           <h1 className="text-lg">Joined on: {worker?.createdAt}</h1>
         </div>
       </div>
-      <div>
-        <TableSchedule />
-      </div>
+      <div></div>
     </div>
   );
 };
