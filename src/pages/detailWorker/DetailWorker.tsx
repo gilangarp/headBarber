@@ -1,20 +1,8 @@
-import { useParams } from "react-router-dom";
-import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
-import { useEffect } from "react";
-import { getByIdWorkerThunk } from "../../actions/workerAction";
+import TableSchedule from "../../components/table/TableSchedule";
+import UseDetailWorker from "./UseDetailWorker";
 
 const DetailWorker = () => {
-  const dispatch = useStoreDispatch();
-  const { id } = useParams<{ id: string }>();
-
-  const { token } = useStoreSelector((state) => state.loginDashboard);
-  const { worker } = useStoreSelector((state) => state.getByIdWorker);
-
-  useEffect(() => {
-    if (id && token) {
-      dispatch(getByIdWorkerThunk({ token, uuid: id }));
-    }
-  }, [dispatch, token, id]);
+  const { worker, date, schedule } = UseDetailWorker();
   return (
     <div className="flex flex-col gap-10">
       <div className="flex text-neutral-800 flex-col items-center justify-center gap-5">
@@ -34,7 +22,9 @@ const DetailWorker = () => {
           <h1 className="text-lg">Joined on: {worker?.createdAt}</h1>
         </div>
       </div>
-      <div></div>
+      <div>
+        <TableSchedule days={date} scheduleData={schedule} />
+      </div>
     </div>
   );
 };

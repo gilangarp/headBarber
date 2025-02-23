@@ -14,6 +14,7 @@ export interface IGroupedShiftData {
 
 export interface IWorkScheduleByDateResponse {
   uuid: string;
+  image: string;
   fullName: string;
   role: string;
   schedule: IGroupedShiftData[];
