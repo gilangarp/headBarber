@@ -41,6 +41,14 @@ export const Router = createBrowserRouter(
           }
         />
         <Route
+          path="/dashboard/schedule/add"
+          element={
+            <PrivateRoute to="/dashboard/login" requiredRoles={["manager"]}>
+              <Schedule />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/dashboard/worker"
           element={
             <PrivateRoute
@@ -62,7 +70,10 @@ export const Router = createBrowserRouter(
         <Route
           path="/dashboard/outlet"
           element={
-            <PrivateRoute to="/dashboard/login" requiredRoles={["owner"]}>
+            <PrivateRoute
+              to="/dashboard/login"
+              requiredRoles={["owner", "manager"]}
+            >
               <Outlet />
             </PrivateRoute>
           }
@@ -70,7 +81,7 @@ export const Router = createBrowserRouter(
         <Route
           path="/dashboard/outlet/add"
           element={
-            <PrivateRoute to="/dashboard/login" requiredRoles={["owner"]}>
+            <PrivateRoute to="/dashboard/login" requiredRoles={["manager"]}>
               <CreateOutlet />
             </PrivateRoute>
           }
@@ -80,7 +91,7 @@ export const Router = createBrowserRouter(
           element={
             <PrivateRoute
               to="/dashboard/login"
-              requiredRoles={["manager", "owner"]}
+              requiredRoles={["manager", "owner", "cashier"]}
             >
               <DetailWorker />
             </PrivateRoute>

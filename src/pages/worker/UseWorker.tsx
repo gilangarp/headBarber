@@ -22,8 +22,10 @@ const UseWorker = () => {
   const { role } = useStoreSelector((state) => state.loginDashboard);
   const { roles } = useStoreSelector((state) => state.getAllRole);
   useEffect(() => {
-    dispatch(getAllRoleThunk());
-  }, [dispatch]);
+    if (token) {
+      dispatch(getAllRoleThunk({ token }));
+    }
+  }, [dispatch, token]);
 
   const handleRoleSelect = (name: string) => {
     dispatch(getAllWorkerActions.setFilter({ ...filter, roleName: name }));

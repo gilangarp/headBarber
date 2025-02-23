@@ -6,6 +6,7 @@ import {
   getAllScheduleThunk,
 } from "../../actions/scheduleAction";
 import { useNavigate } from "react-router-dom";
+import { getAllRoleThunk } from "../../actions/roleAction";
 
 const UseSchedule = () => {
   const dispatch = useStoreDispatch();
@@ -15,6 +16,8 @@ const UseSchedule = () => {
   );
   const { token, role } = useStoreSelector((state) => state.loginDashboard);
   const { date } = useStoreSelector((state) => state.getAllDate);
+  const { roles } = useStoreSelector((state) => state.getAllRole);
+
   interface MonthType {
     id: number;
     name: string;
@@ -66,6 +69,12 @@ const UseSchedule = () => {
     }
   }, [dispatch, month]);
 
+  useEffect(() => {
+    if (token) {
+      dispatch(getAllRoleThunk({ token }));
+    }
+  }, [dispatch, token]);
+
   const months: MonthType[] = [
     { id: 1, name: "January" },
     { id: 2, name: "February" },
@@ -91,6 +100,7 @@ const UseSchedule = () => {
     schedule,
     date,
     role,
+    roles,
   };
 };
 

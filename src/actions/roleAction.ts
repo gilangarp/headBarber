@@ -5,15 +5,16 @@ import { IRoleArrayResponse, IRoleResponse } from "../types/roleType";
 
 export const getAllRoleThunk = createAsyncThunk<
   IRoleResponse[],
-  void,
+  { token: string },
   { rejectValue: IResponse }
->("allRoleThunk/get", async (_, { rejectWithValue }) => {
+>("allRoleThunk/get", async (form, { rejectWithValue }) => {
   const url = `${import.meta.env.VITE_REACT_APP_API_URL}/admin/role`;
 
   try {
     const response: AxiosResponse<IRoleArrayResponse> = await axios.get(url, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${form.token}`,
       },
     });
     return response.data.data;

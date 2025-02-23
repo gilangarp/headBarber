@@ -1,5 +1,5 @@
 import DropdownSelect from "../../components/dropdown/DropdownSelect";
-import { isOwner } from "../../utils/access";
+import { isOwnerOrManager } from "../../utils/access";
 import UseOutlet from "../outlet/UseOutlet";
 import UseWorker from "./UseWorker";
 import { FaPlus, FaUndo } from "react-icons/fa";
@@ -18,7 +18,7 @@ const TableHeader = () => {
     <section className="w-full bg-primary-100 shadow-md">
       <div className="flex flex-col items-center justify-between py-3 px-4 space-y-4 md:flex-row md:space-y-0 md:space-x-4">
         <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3 ml-auto">
-          {isOwner(role ?? "") && (
+          {isOwnerOrManager(role ?? "") && (
             <button
               type="button"
               onClick={handleAddWorker}

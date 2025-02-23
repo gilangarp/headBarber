@@ -1,12 +1,10 @@
 import { FaPlus, FaUndo } from "react-icons/fa";
 import DropdownSelect from "../../components/dropdown/DropdownSelect";
-import UseWorker from "../worker/UseWorker";
 import UseOutlet from "../outlet/UseOutlet";
 import UseSchedule from "./UseSchedule";
-import { isOwner } from "../../utils/access";
+import { isManager, isOwnerOrManager } from "../../utils/access";
 
 const TableHeader = () => {
-  const { roles } = UseWorker();
   const { outlets } = UseOutlet();
   const {
     months,
@@ -15,13 +13,14 @@ const TableHeader = () => {
     handleMonthSelect,
     handleAddSchedule,
     role,
+    roles,
     onReset,
   } = UseSchedule();
   return (
     <section className="w-full bg-primary-100 shadow-md">
       <div className="flex flex-col items-center justify-between py-3 px-4 space-y-4 md:flex-row md:space-y-0 md:space-x-4">
         <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 lg:w-auto lg:flex-row lg:space-y-0 lg:items-center lg:space-x-3 ml-auto">
-          {isOwner(role ?? "") && (
+          {isManager(role ?? "") && (
             <button
               type="button"
               onClick={handleAddSchedule}
@@ -36,20 +35,22 @@ const TableHeader = () => {
               <DropdownSelect
                 data={roles}
                 labelKey="name"
-                valueKey="name"
+                valueKey="id"
                 lable="Role"
                 onChange={handleRoleSelect}
               />
             </div>
-            <div className="w-36">
-              <DropdownSelect
-                data={outlets}
-                labelKey="outletCode"
-                valueKey="outletCode"
-                lable="Outlet"
-                onChange={handleOutletSelect}
-              />
-            </div>
+            {isOwnerOrManager(role ?? "") && (
+              <div className="w-36">
+                <DropdownSelect
+                  data={outlets}
+                  labelKey="outletCode"
+                  valueKey="uuid"
+                  lable="Outlet"
+                  onChange={handleOutletSelect}
+                />
+              </div>
+            )}
           </div>
           <div className="flex items-center w-full space-x-3 md:w-auto">
             <div className="w-36">

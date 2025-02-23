@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   IDateResponse,
   IWorkScheduleByDateResponse,
@@ -38,19 +39,21 @@ const TableSchedule = ({ days, scheduleData }: TableScheduleProps) => {
           {scheduleData.map((person) => (
             <tr key={person.uuid} className="border-b">
               <th className="px-6 py-2 text-nowrap font-medium text-black sticky left-0 bg-primary-50 z-[5] border-b border-gray-300 shadow-lg">
-                <div className="flex gap-3 items-center">
-                  <img
-                    className="w-10 h-10 rounded-full object-cover"
-                    src={person.image}
-                    alt={person.fullName}
-                  />
-                  <div>
-                    <h1 className="text-black text-lg w-52">
-                      {person.fullName}
-                    </h1>
-                    <h2 className="text-[#98999A] text-sm ">{person.role}</h2>
+                <Link to={`/dashboard/worker/${person.uuid}`}>
+                  <div className="flex gap-3 items-center">
+                    <img
+                      className="w-10 h-10 rounded-full object-cover"
+                      src={person.image}
+                      alt={person.fullName}
+                    />
+                    <div>
+                      <h1 className="text-black text-lg w-52">
+                        {person.fullName}
+                      </h1>
+                      <h2 className="text-[#98999A] text-sm ">{person.role}</h2>
+                    </div>
                   </div>
-                </div>
+                </Link>
               </th>
               {(() => {
                 let currentShift: string | null = null;
