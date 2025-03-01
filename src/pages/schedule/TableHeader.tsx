@@ -2,7 +2,7 @@ import { FaPlus, FaUndo } from "react-icons/fa";
 import DropdownSelect from "../../components/dropdown/DropdownSelect";
 import UseOutlet from "../outlet/UseOutlet";
 import UseSchedule from "./UseSchedule";
-import { isManager, isOwnerOrManager } from "../../utils/access";
+import { hasPermission, Role } from "../../utils/access";
 
 const TableHeader = () => {
   const { outlets } = UseOutlet();
@@ -20,7 +20,7 @@ const TableHeader = () => {
     <section className="w-full bg-primary-100 shadow-md">
       <div className="flex flex-col items-center justify-between py-3 px-4 space-y-4 md:flex-row md:space-y-0 md:space-x-4">
         <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 lg:w-auto lg:flex-row lg:space-y-0 lg:items-center lg:space-x-3 ml-auto">
-          {isManager(role ?? "") && (
+          {hasPermission(role as Role, "create:schedule") && (
             <button
               type="button"
               onClick={handleAddSchedule}
@@ -40,7 +40,7 @@ const TableHeader = () => {
                 onChange={handleRoleSelect}
               />
             </div>
-            {isOwnerOrManager(role ?? "") && (
+            {hasPermission(role as Role, "view:schedule") && (
               <div className="w-36">
                 <DropdownSelect
                   data={outlets}

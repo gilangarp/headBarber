@@ -38,9 +38,12 @@ export interface IFilterSuperUser {
 }
 
 export interface IWorkerCreate {
+  firstName: string;
+  lastName: string;
   file: File;
+  outletId: string[];
   roleId: string;
-  outletId: string;
+  email: string;
   password: string;
 }
 

@@ -9,7 +9,7 @@ interface WorkerState {
   firstName: string;
   lastName: string;
   selectedRoleUuid: string | null;
-  selectedOutletUuid: string | null;
+  selectedOutletUuid: string[] | null;
   loading: boolean;
   successMessage: string;
 }
@@ -52,7 +52,7 @@ const createWorkerSlice = createSlice({
     setRole: (state, action: PayloadAction<string | null>) => {
       state.selectedRoleUuid = action.payload;
     },
-    setOutlet: (state, action: PayloadAction<string | null>) => {
+    setOutlet: (state, action: PayloadAction<string[] | null>) => {
       state.selectedOutletUuid = action.payload;
     },
   },

@@ -3,6 +3,7 @@ import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { getAllRoleThunk } from "../../actions/roleAction";
 import { createWorkerAction } from "../../store/createInputSlice";
 import { createWorkerThunk } from "../../actions/workerAction";
+import { getAllOutletThunk } from "../../actions/outletAction";
 
 const UseCreateWorker = () => {
   const dispatch = useStoreDispatch();
@@ -23,10 +24,19 @@ const UseCreateWorker = () => {
 
   const { roles } = useStoreSelector((state) => state.getAllRole);
   const { token } = useStoreSelector((state) => state.loginDashboard);
+  const { outlets } = useStoreSelector((state) => state.getAllOutlet);
 
   useEffect(() => {
-    dispatch(getAllRoleThunk());
-  }, [dispatch]);
+    if (token) {
+      dispatch(getAllRoleThunk({ token }));
+    }
+  }, [dispatch, token]);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(getAllOutletThunk({ token }));
+    }
+  }, [dispatch, token]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -46,7 +56,8 @@ const UseCreateWorker = () => {
     dispatch(createWorkerAction.setRole(id));
   };
 
-  const handleOutletSelect = (id: string) => {
+  const handleOutletSelect = (id: string[]) => {
+    console.log(id);
     dispatch(createWorkerAction.setOutlet(id));
   };
 
@@ -137,6 +148,7 @@ const UseCreateWorker = () => {
 
     // Data used for dropdown selections
     roles,
+    outlets,
   };
 };
 

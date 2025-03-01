@@ -2,10 +2,10 @@ import { BsCalendar4Week } from "react-icons/bs";
 import { FaUserFriends } from "react-icons/fa";
 import UseSidebarWithNavbar from "./UseSidebarWithNavbar";
 import { CiLogout } from "react-icons/ci";
-import { isOwnerOrManager } from "../../utils/access";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { HiOutlineMenuAlt2 } from "react-icons/hi";
 import logo from "../../assets/Logo .png";
+import { hasPermission, Role } from "../../utils/access";
 
 const SidebarWithNavbar = () => {
   const { currentPath, logout, worker, role } = UseSidebarWithNavbar();
@@ -114,7 +114,7 @@ const SidebarWithNavbar = () => {
                 <span className="ms-3">Schedule</span>
               </a>
             </li>
-            {isOwnerOrManager(role ?? "") && (
+            {hasPermission(role as Role, "create:worker") && (
               <li>
                 <a
                   href="/dashboard/worker"
@@ -129,7 +129,7 @@ const SidebarWithNavbar = () => {
                 </a>
               </li>
             )}
-            {isOwnerOrManager(role ?? "") && (
+            {hasPermission(role as Role, "view:outlet") && (
               <li>
                 <a
                   href="/dashboard/outlet"

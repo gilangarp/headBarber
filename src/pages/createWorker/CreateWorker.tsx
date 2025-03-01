@@ -8,7 +8,7 @@ import DropdownSelect from "../../components/dropdown/DropdownSelect";
 import SuccessAlert from "../../components/alert/SuccessAlert";
 import ConfirmationAlert from "../../components/alert/ConfirmationAlert";
 import ErrorAlert from "../../components/alert/ErrorAlert";
-import UseOutlet from "../outlet/UseOutlet";
+import DropdownSelectArray from "../../components/dropdown/DropdownSelectArray";
 
 const CreateWorker = () => {
   const {
@@ -40,8 +40,8 @@ const CreateWorker = () => {
 
     // Data used for dropdown selections
     roles,
+    outlets,
   } = UseCreateWorker();
-  const { outlets } = UseOutlet();
   return (
     <div className="flex flex-col gap-3">
       {successMessage && <SuccessAlert message={successMessage} />}
@@ -73,11 +73,11 @@ const CreateWorker = () => {
         />
       </div>
       <div className="flex flex-col w-full lg:flex-row justify-between gap-5">
-        <DropdownSelect
+        <DropdownSelectArray
           data={outlets}
           lable="Outlet Code"
-          labelKey="outletCode"
           valueKey="uuid"
+          labelKey="outletCode"
           onChange={handleOutletSelect}
         />
         <DropdownSelect
