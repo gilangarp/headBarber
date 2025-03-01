@@ -62,7 +62,10 @@ export const Router = createBrowserRouter(
         <Route
           path="/dashboard/worker/add"
           element={
-            <PrivateRoute to="/dashboard/login" requiredRoles={["owner"]}>
+            <PrivateRoute
+              to="/dashboard/login"
+              requiredRoles={["owner", "manager"]}
+            >
               <CreateWorker />
             </PrivateRoute>
           }

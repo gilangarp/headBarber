@@ -1,8 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { authWorkerReducer, authWorkerState } from "./authWorkerSlice";
-import { PersistConfig, persistStore } from "redux-persist";
-import persistReducer from "redux-persist/es/persistReducer";
-import storage from "redux-persist/lib/storage";
 import { getAllRoleReducer } from "./getAllRoleSlice";
 import { createOutletReducer } from "./createOutletSlice";
 import { getAllWorkerReducer } from "./getAllWorkerSlice";
@@ -11,16 +7,8 @@ import { getByIdWorkerReducer } from "./getByIdWorkerSlice";
 import { getAllOutletReducer } from "./getAllOutletSlice";
 import { getAllScheduleReducer } from "./getAllScheduleSlice";
 import { getAllDateReducer } from "./getAllDateSlice";
-
-const authPersistConfig: PersistConfig<authWorkerState> = {
-  key: "authWorker-token",
-  storage,
-  whitelist: ["token", "uuid", "role"],
-};
-const persistedAuthWorkerReducer = persistReducer(
-  authPersistConfig,
-  authWorkerReducer
-);
+import { persistedAuthWorkerReducer } from "./persistConfig";
+import persistStore from "redux-persist/es/persistStore";
 
 export const store = configureStore({
   reducer: {
