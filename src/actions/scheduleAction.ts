@@ -37,6 +37,10 @@ export const getAllScheduleThunk = createAsyncThunk<
     params.append("userId", form.filter?.userId);
   }
 
+  if (form.filter?.search) {
+    params.append("search", form.filter?.search);
+  }
+
   const fullUrl = `${url}?${params.toString()}`;
   try {
     const response: AxiosResponse<IWorkScheduleArrayResponse> = await axios.get(

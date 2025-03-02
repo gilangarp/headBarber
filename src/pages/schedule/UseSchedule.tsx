@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { getAllScheduleActions } from "../../store/getAllScheduleSlice";
 import {
@@ -11,6 +11,7 @@ import { getAllRoleThunk } from "../../actions/roleAction";
 const UseSchedule = () => {
   const dispatch = useStoreDispatch();
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
   const { schedule, filterSchedule } = useStoreSelector(
     (state) => state.getAllSchedule
   );
@@ -41,6 +42,14 @@ const UseSchedule = () => {
 
   const handleMonthSelect = (id: string) => {
     dispatch(getAllScheduleActions.setFilter({ ...filterSchedule, month: id }));
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = (query: string) => {
+    dispatch(getAllScheduleActions.setFilter({ search: query }));
   };
 
   const onReset = () => {
@@ -96,6 +105,9 @@ const UseSchedule = () => {
     handleAddSchedule,
     handleOutletSelect,
     handleMonthSelect,
+    searchQuery,
+    handleSearchChange,
+    handleSearchSubmit,
     onReset,
     schedule,
     date,

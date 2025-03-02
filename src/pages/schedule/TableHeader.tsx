@@ -3,6 +3,8 @@ import DropdownSelect from "../../components/dropdown/DropdownSelect";
 import UseOutlet from "../outlet/UseOutlet";
 import UseSchedule from "./UseSchedule";
 import { hasPermission, Role } from "../../utils/access";
+import Search from "../../components/Input/SearchInput";
+import { CiSearch } from "react-icons/ci";
 
 const TableHeader = () => {
   const { outlets } = UseOutlet();
@@ -12,13 +14,24 @@ const TableHeader = () => {
     handleOutletSelect,
     handleMonthSelect,
     handleAddSchedule,
+    searchQuery,
+    handleSearchChange,
+    handleSearchSubmit,
     role,
     roles,
     onReset,
   } = UseSchedule();
+
   return (
     <section className="w-full bg-primary-100 shadow-md">
       <div className="flex flex-col items-center justify-between py-3 px-4 space-y-4 md:flex-row md:space-y-0 md:space-x-4">
+        <Search
+          value={searchQuery}
+          onChange={handleSearchChange}
+          onSearch={handleSearchSubmit}
+          icon={<CiSearch />}
+        />
+
         <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 lg:w-auto lg:flex-row lg:space-y-0 lg:items-center lg:space-x-3 ml-auto">
           {hasPermission(role as Role, "create:schedule") && (
             <button

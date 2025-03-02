@@ -38,6 +38,7 @@ const getAllScheduleSlice = createSlice({
         outletId: "",
         month: "",
         userId: "",
+        search: "",
       };
     },
   },

@@ -5,6 +5,7 @@ export interface IWorkScheduleQuery {
   roleId?: string;
   outletId?: string;
   userId?: string;
+  search?: string;
 }
 
 export interface IGroupedShiftData {

@@ -2,7 +2,7 @@ import React from "react";
 
 interface InputFieldProps {
   id: string;
-  label: string;
+  label?: string;
   placeholder: string;
   required?: boolean;
   type?: string;
@@ -10,6 +10,7 @@ interface InputFieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   icon?: React.ReactNode;
   onButtonClick?: () => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export const InputField = ({
@@ -22,15 +23,18 @@ export const InputField = ({
   onChange,
   icon,
   onButtonClick,
+  onKeyDown,
 }: InputFieldProps) => {
   return (
     <div className="w-full relative">
-      <label
-        htmlFor={id}
-        className="block mb-2 text-sm font-medium text-gray-900"
-      >
-        {label}
-      </label>
+      {label && (
+        <label
+          htmlFor={id}
+          className="block mb-2 text-sm font-medium text-gray-900"
+        >
+          {label}
+        </label>
+      )}
 
       <div className="relative w-full">
         <input
@@ -41,6 +45,7 @@ export const InputField = ({
           required={required}
           value={value}
           onChange={onChange}
+          onKeyDown={onKeyDown}
         />
 
         {onButtonClick && (
