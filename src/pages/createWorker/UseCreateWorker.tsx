@@ -57,7 +57,6 @@ const UseCreateWorker = () => {
   };
 
   const handleOutletSelect = (id: string[]) => {
-    console.log(id);
     dispatch(createWorkerAction.setOutlet(id));
   };
 

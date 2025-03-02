@@ -10,6 +10,7 @@ const ROLES = {
     "create:schedule",
     "create:outlet",
     "view:outlet",
+    "create:role",
   ],
   cashier: [],
 } as const;

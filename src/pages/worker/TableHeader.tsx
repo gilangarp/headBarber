@@ -12,6 +12,7 @@ const TableHeader = () => {
     handleRoleSelect,
     handleOutletSelect,
     onReset,
+    handleAddRole,
   } = UseWorker();
   const { outlets } = UseOutlet();
   return (
@@ -26,6 +27,17 @@ const TableHeader = () => {
             >
               <FaPlus className="h-3.5 w-3.5 mr-2" />
               Add Worker
+            </button>
+          )}
+
+          {hasPermission(role as Role, "create:role") && (
+            <button
+              type="button"
+              onClick={handleAddRole}
+              className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white rounded-lg bg-primary-700 hover:bg-primary-800"
+            >
+              <FaPlus className="h-3.5 w-3.5 mr-2" />
+              Add Role
             </button>
           )}
 

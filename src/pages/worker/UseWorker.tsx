@@ -15,6 +15,10 @@ const UseWorker = () => {
     navigate("/dashboard/worker/add");
   };
 
+  const handleAddRole = () => {
+    navigate("/dashboard/role/add");
+  };
+
   const onReset = () => {
     dispatch(getAllWorkerActions.resetFilter());
   };
@@ -49,6 +53,7 @@ const UseWorker = () => {
     handleAddWorker,
     role,
     onReset,
+    handleAddRole,
   };
 };
 

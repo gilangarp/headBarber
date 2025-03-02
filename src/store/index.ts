@@ -9,15 +9,21 @@ import { getAllScheduleReducer } from "./getAllScheduleSlice";
 import { getAllDateReducer } from "./getAllDateSlice";
 import { persistedAuthWorkerReducer } from "./persistConfig";
 import persistStore from "redux-persist/es/persistStore";
+import { createRoleReducer } from "./createRoleSlice";
+import { deleteRoleReducer } from "./deleteRoleSlice";
+import { updateRoleReducer } from "./updateRoleSlice";
 
 export const store = configureStore({
   reducer: {
     createWorker: createWorkerReducer,
-    loginDashboard: persistedAuthWorkerReducer,
-    getAllRole: getAllRoleReducer,
-    createOutlet: createOutletReducer,
     getAllWorker: getAllWorkerReducer,
     getByIdWorker: getByIdWorkerReducer,
+    loginDashboard: persistedAuthWorkerReducer,
+    getAllRole: getAllRoleReducer,
+    createRole: createRoleReducer,
+    updateRole: updateRoleReducer,
+    deleteRole: deleteRoleReducer,
+    createOutlet: createOutletReducer,
     getAllOutlet: getAllOutletReducer,
     getAllSchedule: getAllScheduleReducer,
     getAllDate: getAllDateReducer,
