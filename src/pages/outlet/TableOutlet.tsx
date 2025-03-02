@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import UseOutlet from "./UseOutlet";
+import { CiEdit } from "react-icons/ci";
+import { MdDeleteOutline } from "react-icons/md";
+import { hasPermission, Role } from "../../utils/access";
 
 const TableOutlet = () => {
-  const { outlets } = UseOutlet();
+  const { outlets, handleDelete, role } = UseOutlet();
   return (
     <div className="overflow-auto ">
       <table className="w-full text-base text-left text-gray-500 ">
@@ -17,6 +20,11 @@ const TableOutlet = () => {
             <th scope="col" className="text-sm px-4 py-3 border-l">
               address
             </th>
+            {hasPermission(role as Role, "create:outlet") && (
+              <th scope="col" className="text-sm px-4 py-3 border-l">
+                Action
+              </th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -39,6 +47,16 @@ const TableOutlet = () => {
               <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap border-l">
                 <div className="flex items-center">{data.address}</div>
               </td>
+              {hasPermission(role as Role, "create:outlet") && (
+                <td className="px-4 py-2 flex justify-end gap-5 font-medium text-gray-900 whitespace-nowrap border-l">
+                  <Link to={`/dashboard/outlet/setting/${data.uuid}`}>
+                    <CiEdit className="w-6 h-6" />
+                  </Link>
+                  <button onClick={() => handleDelete(data.uuid)}>
+                    <MdDeleteOutline className="w-6 h-6" />
+                  </button>
+                </td>
+              )}
             </tr>
           ))}
         </tbody>

@@ -19,7 +19,12 @@ const UseOutlet = () => {
       dispatch(getAllOutletThunk({ token }));
     }
   }, [dispatch, token]);
-  return { handleAddOutlet, role, outlets };
+
+  const handleDelete = (uuid: string) => {
+    console.log(uuid);
+  };
+
+  return { handleAddOutlet, role, outlets, handleDelete };
 };
 
 export default UseOutlet;

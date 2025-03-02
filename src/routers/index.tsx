@@ -15,6 +15,7 @@ import CreateOutlet from "../pages/createOutlet/CreateOutlet";
 import DetailWorker from "../pages/detailWorker/DetailWorker";
 import CreateRole from "../pages/createRole/CreateRole";
 import UpdateRole from "../pages/updateRole/UpdateRole";
+import UpdateOutlet from "../pages/updateOutlet/UpdateOutlet";
 
 export const Router = createBrowserRouter(
   createRoutesFromChildren(
@@ -88,6 +89,14 @@ export const Router = createBrowserRouter(
           element={
             <PrivateRoute to="/dashboard/login" requiredRoles={["manager"]}>
               <CreateOutlet />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/dashboard/outlet/setting/:id"
+          element={
+            <PrivateRoute to="/dashboard/login" requiredRoles={["manager"]}>
+              <UpdateOutlet />
             </PrivateRoute>
           }
         />
