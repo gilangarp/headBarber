@@ -1,15 +1,17 @@
 import { Link } from "react-router-dom";
 import UseWorker from "./UseWorker";
+import { MdDeleteOutline } from "react-icons/md";
+import { CiEdit } from "react-icons/ci";
 
 const TableWorker = () => {
-  const { worker } = UseWorker();
+  const { worker, handleDelete } = UseWorker();
   return (
     <div className="overflow-auto ">
       <table className="w-full text-base text-left text-gray-500 ">
         <thead className="text-xs text-gray-700 uppercase bg-primary-100">
           <tr className="text-nowrap">
             <th
-              style={{ width: "40%" }}
+              style={{ width: "30%" }}
               scope="col"
               className="text-sm px-4 py-3 border-l"
             >
@@ -35,6 +37,13 @@ const TableWorker = () => {
               className="text-sm px-4 py-3 border-l border-r"
             >
               Come To Work
+            </th>
+            <th
+              style={{ width: "10%" }}
+              scope="col"
+              className="text-sm px-4 py-3 border-l border-r"
+            >
+              Action
             </th>
           </tr>
         </thead>
@@ -65,6 +74,14 @@ const TableWorker = () => {
               </td>
               <td className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap border-l border-r">
                 {data.createdAt}
+              </td>
+              <td className="flex items-center justify-end gap-5 px-4 py-2 font-medium text-gray-900 whitespace-nowrap border-l border-r">
+                <Link to={`/dashboard/worker/setting/${data.uuid}`}>
+                  <CiEdit className="w-6 h-6" />
+                </Link>
+                <button onClick={() => handleDelete(data.uuid)}>
+                  <MdDeleteOutline className="w-6 h-6" />
+                </button>
               </td>
             </tr>
           ))}

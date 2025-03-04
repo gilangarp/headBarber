@@ -5,12 +5,11 @@ const ROLES = {
   owner: ["view:worker", "create:worker", "view:schedule", "view:outlet"],
   manager: [
     "view:worker",
-    "create:worker",
+    "create:worker/role",
     "view:schedule",
     "create:schedule",
     "create:outlet",
     "view:outlet",
-    "create:role",
   ],
   cashier: [],
 } as const;

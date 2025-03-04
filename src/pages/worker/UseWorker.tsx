@@ -39,6 +39,10 @@ const UseWorker = () => {
     dispatch(getAllWorkerActions.setFilter({ ...filter, outletCode: code }));
   };
 
+  const handleDelete = (uuid: string) => {
+    console.log(uuid);
+  };
+
   useEffect(() => {
     if (token && filter) {
       dispatch(getAllWorkerThunk({ token, filter }));
@@ -53,6 +57,7 @@ const UseWorker = () => {
     handleAddWorker,
     role,
     onReset,
+    handleDelete,
     handleAddRole,
   };
 };
